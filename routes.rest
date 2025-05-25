@@ -1,0 +1,64 @@
+### Get all albums
+GET http://localhost:3000/albums
+
+
+### Get album by album name
+http://localhost:3000/albums/A Change of Season
+
+
+### Create new album
+POST http://localhost:3000/albums HTTP/1.1
+Content-Type: application/json
+
+{
+    "title": "A Change of Season",
+    "releaseYear": "1995",
+    "type": "EP",
+    "tracklist": [{
+      "trackNumber": 1,
+      "trackTitle": "A Change of Seasons",
+      "duration": "23:09"
+    },
+    {
+      "trackNumber": 2,
+      "trackTitle": "Funeral for a Friend/Love Lies Bleeding (Elton John cover)",
+      "duration": "10:14"
+    },
+    {
+      "trackNumber": 3,
+      "trackTitle": "Perfect Strangers (Deep Purple cover)",
+      "duration": "5:33"
+    },
+    {
+      "trackNumber": 4,
+      "trackTitle": "The Big Medley (Various Artists cover)",
+      "duration": "10:33"
+    },
+    {
+      "trackNumber": 5,
+      "trackTitle": "The Rover/Achilles Last Stand/The Song Remains the Same (Led Zeppelin medley)",
+      "duration": "7:28"
+    },
+    {
+      "trackNumber": 6,
+      "trackTitle": "Still of the Night (Whitesnake cover)",
+      "duration": "6:28"
+    },
+    {
+      "trackNumber": 7,
+      "trackTitle": "Purrple Haze (Jimi Hendrix cover)",
+      "duration": "2:27"
+    }
+    ],
+    "totalDuration": "66:52",
+    "members": [
+    "6651a0b0e513a5a7b1b87a81",
+    "6651a0b0e513a5a7b1b87a82",
+    "6651a0b0e513a5a7b1b87a83",
+    "6651a0b0e513a5a7b1b87a84",
+    "6651a0b0e513a5a7b1b87a85"
+  ]
+}
+
+### Delete album
+DELETE http://localhost:3000/albums/6832ac4cb076d8178d16e0ff
