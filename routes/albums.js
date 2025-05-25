@@ -5,6 +5,6 @@ const albumsController = require('../controllers/albums');
 
 router.get('/', albumsController.getAll);
 
-router.get('/:id', albumsController.getSingle);
+router.get('/:albumTitle', albumsController.getSingleByTitle);
 
 module.exports = router;
