@@ -1,13 +1,12 @@
 const mongodb = require('../data/database');
 const Album = require('../models/album');
-//const ObjectId = require('mongodb').ObjectId;
 
 const getAll = async (req, res) => {
     try {
         const albums = await Album.find({}).populate('members', 'name role');
         res.status(200).json(albums);
     } catch (error) {
-        console.error('Error to find all the albums:', error);
+        console.error('Error fetching all albums:', error);
         res.status(500).json({ message: 'Error on server.' });
     }
 };
@@ -19,25 +18,25 @@ const getSingleByTitle = async (req, res) => {
         if (album) {
             res.status(200).json(album);
         } else {
-            res.status(404).json({ message: 'Abumnot found.' });
+            res.status(404).json({ message: 'Abumnot found' });
         }
     } catch (error) {
-        console.error('Error to find the album by title: ', error);
-        res.status(500).json({ message: error.message || 'Error on server to find the album.' });
+        console.error('Error fetching album by title:', error);
+        res.status(500).json({ message: error.message || 'Error on server fetching the album.' });
     }
 };
 
 const createAlbum = async (req, res) => {
-    const { title, releaseYear, type, tracklist, totalDuration, members} = req.body;
+    const { title, releaseYear, type, tracklist, totalDuration, members } = req.body;
 
     if (!title || !releaseYear || !tracklist || !Array.isArray(tracklist)) {
-        return res.status(400).json({ message: 'Title, releaseYear, and tracklist are required, and tracklist must be an array.'});
+        return res.status(400).json({ message: 'Title, releaseYear, and tracklist are required, and tracklist must be an array.' });
     }
     if (typeof releaseYear !== 'number' || releaseYear < 1989) {
-        return res.status(400).json({ message: 'Release year must be a number and not less than 1989.'})
+        return res.status(400).json({ message: 'Release year must be a number and not less than 1989.' });
     }
 
-    const album = new Album ({
+    const album = new Album({
         title,
         releaseYear,
         type,
@@ -50,10 +49,8 @@ const createAlbum = async (req, res) => {
         const savedAlbum = await album.save();
         res.status(201).json(savedAlbum);
     } catch (error) {
-        console.error('Error to create the album: ', error);
-        res.status(400).json({
-            message: error.message || 'Error to create the album.'
-        });
+        console.error('Error creating album:', error);
+        res.status(400).json({ message: error.message || 'Error creating the album.' });
     }
 };
 
@@ -63,10 +60,10 @@ const updateAlbum = async (req, res) => {
 
     if (title === undefined || releaseYear === undefined || tracklist === undefined) {
         return res.status(400).json({ message: 'Title, releaseYear, and tracklist are required for update.' });
-     }
+    }
     if (typeof releaseYear !== 'number' || releaseYear < 1989) {
         return res.status(400).json({ message: 'Release year must be a number and not less than 1989.' });
-     }
+    }
     if (!Array.isArray(tracklist)) {
         return res.status(400).json({ message: 'Tracklist must be an array.' });
     }
@@ -77,8 +74,6 @@ const updateAlbum = async (req, res) => {
         type,
         tracklist,
         totalDuration,
-        coverArtUrl,
-        description,
         members
     };
 
@@ -89,15 +84,13 @@ const updateAlbum = async (req, res) => {
         });
 
         if (!updatedAlbum) {
-            return res.status(404).json({ message: 'Not album finded.' });
+            return res.status(404).json({ message: 'Not album finded' });
         }
 
         res.status(200).json(updatedAlbum);
     } catch (error) {
-        console.error('Error to update the album:', error);
-        res.status(400).json({
-            message: error.message || 'Error updating the album.'
-        });
+        console.error('Error updating album:', error);
+        res.status(400).json({ message: error.message || 'Error updating the album.' });
     }
 };
 
@@ -108,13 +101,13 @@ const deleteAlbum = async (req, res) => {
         const deletedAlbum = await Album.findByIdAndDelete(albumId);
 
         if (!deletedAlbum) {
-            return res.status(404).json({ message: 'Album not find' });
+            return res.status(404).json({ message: 'Album not found' });
         }
 
         res.status(204).send();
     } catch (error) {
-        console.error('Error deleting the album:', error);
-        res.status(500).json({ message: error.message || 'Error on server to see the album.' });
+        console.error('Error deleting album:', error);
+        res.status(500).json({ message: error.message || 'Error on server deleting the album.' });
     }
 };
 
