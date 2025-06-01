@@ -61,4 +61,4 @@ Content-Type: application/json
 }
 
 ### Delete album
-DELETE http://localhost:3000/albums/6832ac4cb076d8178d16e0ff
+DELETE http://localhost:3000/albums/6832b1aafe4361489db6903b

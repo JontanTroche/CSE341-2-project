@@ -4,7 +4,7 @@ const Album = require('../models/album');
 
 const getAll = async (req, res) => {
     try {
-        const albums = await Album.find({});
+        const albums = await Album.find({}).populate('members', 'name role');
         res.status(200).json(albums);
     } catch (error) {
         console.error('Error to find all the albums:', error);
@@ -15,8 +15,7 @@ const getAll = async (req, res) => {
 const getSingleByTitle = async (req, res) => {
     try {
         const albumTitleParam = decodeURIComponent(req.params.albumTitle);
-        const album = await Album.findOne({ title: { $regex: new RegExp(albumTitleParam, 'i') } });
-
+        const album = await Album.findOne({ title: { $regex: new RegExp(albumTitleParam, 'i') } }).populate('members', 'name role');
         if (album) {
             res.status(200).json(album);
         } else {
