@@ -1,0 +1,499 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "Dream Theater Discography API",
+    "description": "A simple API to manage Dream Theater's discography and band members.",
+    "version": "1.0.0"
+  },
+  "servers": [
+    {
+      "url": "http://localhost:3000",
+      "description": "Local server"
+    }
+  ],
+  "paths": {
+    "/albums": {
+      "get": {
+        "summary": "Get all albums",
+        "description": "Retrieve a list of all albums in the discography.",
+        "responses": {
+          "200": {
+            "description": "A list of albums",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Album"
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Server error"
+          }
+        }
+      },
+      "post": {
+        "summary": "Create a new album",
+        "description": "Add a new album to the discography.",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/AlbumInput"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Album created successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Album"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid input"
+          }
+        }
+      }
+    },
+    "/albums/{albumTitle}": {
+      "get": {
+        "summary": "Get an album by title",
+        "description": "Retrieve a specific album by its title.",
+        "parameters": [
+          {
+            "name": "albumTitle",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Album found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Album"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Album not found"
+          },
+          "500": {
+            "description": "Server error"
+          }
+        }
+      }
+    },
+    "/albums/{id}": {
+      "put": {
+        "summary": "Update an album",
+        "description": "Update an existing album by its ID.",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/AlbumInput"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Album updated successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Album"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Album not found"
+          },
+          "400": {
+            "description": "Invalid input"
+          }
+        }
+      },
+      "delete": {
+        "summary": "Delete an album",
+        "description": "Remove an album by its ID.",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "Album deleted successfully"
+          },
+          "404": {
+            "description": "Album not found"
+          },
+          "500": {
+            "description": "Server error"
+          }
+        }
+      }
+    },
+    "/members": {
+      "get": {
+        "summary": "Get all members",
+        "description": "Retrieve a list of all band members.",
+        "responses": {
+          "200": {
+            "description": "A list of members",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Member"
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Server error"
+          }
+        }
+      },
+      "post": {
+        "summary": "Create a new member",
+        "description": "Add a new member to the band.",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/MemberInput"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Member created successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Member"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid input"
+          }
+        }
+      }
+    },
+    "/members/{id}": {
+      "get": {
+        "summary": "Get a member by ID",
+        "description": "Retrieve a specific member by their ID.",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Member found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Member"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Member not found"
+          },
+          "500": {
+            "description": "Server error"
+          }
+        }
+      },
+      "put": {
+        "summary": "Update a member",
+        "description": "Update an existing member by their ID.",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/MemberInput"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Member updated successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Member"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Member not found"
+          },
+          "400": {
+            "description": "Invalid input"
+          }
+        }
+      },
+      "delete": {
+        "summary": "Delete a member",
+        "description": "Remove a member by their ID.",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "Member deleted successfully"
+          },
+          "404": {
+            "description": "Member not found"
+          },
+          "500": {
+            "description": "Server error"
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "Album": {
+        "type": "object",
+        "properties": {
+          "_id": {
+            "type": "string",
+            "example": "68325659072e75b361e8fc56"
+          },
+          "title": {
+            "type": "string",
+            "example": "When Dream and Day Unite"
+          },
+          "releaseYear": {
+            "type": "number",
+            "example": 1989
+          },
+          "type": {
+            "type": "string",
+            "example": "Studio Album"
+          },
+          "tracklist": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "trackNumber": {
+                  "type": "number",
+                  "example": 1
+                },
+                "trackTitle": {
+                  "type": "string",
+                  "example": "A Fortune in Lies"
+                },
+                "duration": {
+                  "type": "string",
+                  "example": "5:12"
+                }
+              }
+            }
+          },
+          "totalDuration": {
+            "type": "string",
+            "example": "51:55"
+          },
+          "members": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "_id": {
+                  "type": "string",
+                  "example": "683c05b1f4cbfa4b5c5c4ed5"
+                },
+                "name": {
+                  "type": "string",
+                  "example": "Charlie Dominici"
+                },
+                "role": {
+                  "type": "string",
+                  "example": "Vocals"
+                }
+              }
+            }
+          }
+        }
+      },
+      "AlbumInput": {
+        "type": "object",
+        "properties": {
+          "title": {
+            "type": "string",
+            "example": "When Dream and Day Unite"
+          },
+          "releaseYear": {
+            "type": "number",
+            "example": 1989
+          },
+          "type": {
+            "type": "string",
+            "example": "Studio Album"
+          },
+          "tracklist": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "trackNumber": {
+                  "type": "number",
+                  "example": 1
+                },
+                "trackTitle": {
+                  "type": "string",
+                  "example": "A Fortune in Lies"
+                },
+                "duration": {
+                  "type": "string",
+                  "example": "5:12"
+                }
+              }
+            }
+          },
+          "totalDuration": {
+            "type": "string",
+            "example": "51:55"
+          },
+          "members": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "example": "683c05b1f4cbfa4b5c5c4ed5"
+            }
+          }
+        },
+        "required": ["title", "releaseYear", "tracklist"]
+      },
+      "Member": {
+        "type": "object",
+        "properties": {
+          "_id": {
+            "type": "string",
+            "example": "683c05b1f4cbfa4b5c5c4ed5"
+          },
+          "name": {
+            "type": "string",
+            "example": "Charlie Dominici"
+          },
+          "role": {
+            "type": "string",
+            "example": "Vocals"
+          },
+          "joinYear": {
+            "type": "number",
+            "example": 1989
+          },
+          "leaveYear": {
+            "type": "string",
+            "example": "1990"
+          },
+          "reunionYear": {
+            "type": "number",
+            "example": 2023
+          }
+        }
+      },
+      "MemberInput": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "example": "Charlie Dominici"
+          },
+          "role": {
+            "type": "string",
+            "example": "Vocals"
+          },
+          "joinYear": {
+            "type": "number",
+            "example": 1989
+          },
+          "leaveYear": {
+            "type": "string",
+            "example": "1990"
+          },
+          "reunionYear": {
+            "type": "number",
+            "example": 2023
+          }
+        },
+        "required": ["name", "role", "joinYear"]
+      }
+    }
+  }
+}

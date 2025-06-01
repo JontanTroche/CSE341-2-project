@@ -20,11 +20,17 @@ importers:
       mongoose:
         specifier: ^8.15.0
         version: 8.15.0
+      swagger-ui-express:
+        specifier: ^5.0.1
+        version: 5.0.1(express@5.1.0)
 
 packages:
 
   '@mongodb-js/saslprep@1.2.2':
     resolution: {integrity: sha512-EB0O3SCSNRUFk66iRCpI+cXzIjdswfCs7F6nOC3RAGJ7xr5YhaicvsRwJ9eyzYvYRlCSDUO/c7g4yNulxKC1WA==}
+
+  '@scarf/scarf@1.4.0':
+    resolution: {integrity: sha512-xxeapPiUXdZAE3che6f3xogoJPeZgig6omHEy1rIY5WVsB3H2BHNnZH+gHG6x91SCWyQCzWGsuL2Hh3ClO5/qQ==}
 
   '@types/webidl-conversions@7.0.3':
     resolution: {integrity: sha512-CiJJvcRtIgzadHCYXw7dqEnMNRjhGZlYK05Mj9OyktqV8uVT8fD2BFOB7S1uwBE3Kj2Z+4UyPmFw/Ixgw/LAlA==}
@@ -338,6 +344,15 @@ packages:
     resolution: {integrity: sha512-RwNA9Z/7PrK06rYLIzFMlaF+l73iwpzsqRIFgbMLbTcLD6cOao82TaWefPXQvB2fOC4AjuYSEndS7N/mTCbkdQ==}
     engines: {node: '>= 0.8'}
 
+  swagger-ui-dist@5.22.0:
+    resolution: {integrity: sha512-8YlCSxiyb8uPFa7qoB1lRHYr1PBbT1NuV9RvQdFFPFPudRBTPf9coU5jl02KhzvrtmTEw4jXRgb0kg8pJvVuWQ==}
+
+  swagger-ui-express@5.0.1:
+    resolution: {integrity: sha512-SrNU3RiBGTLLmFU8GIJdOdanJTl4TOmT27tt3bWWHppqYmAZ6IDuEuBvMU6nZq0zLEe6b/1rACXCgLZqO6ZfrA==}
+    engines: {node: '>= v0.10.32'}
+    peerDependencies:
+      express: '>=4.0.0 || >=5.0.0-beta'
+
   toidentifier@1.0.1:
     resolution: {integrity: sha512-o5sSPKEkg/DIQNmH43V0/uerLrpzVedkUh8tGNvaeXpfpuwjKenlSox/2O/BTlZUtEe+JG7s5YhEz608PlAHRA==}
     engines: {node: '>=0.6'}
@@ -374,6 +389,8 @@ snapshots:
   '@mongodb-js/saslprep@1.2.2':
     dependencies:
       sparse-bitfield: 3.0.3
+
+  '@scarf/scarf@1.4.0': {}
 
   '@types/webidl-conversions@7.0.3': {}
 
@@ -715,6 +732,15 @@ snapshots:
       memory-pager: 1.5.0
 
   statuses@2.0.1: {}
+
+  swagger-ui-dist@5.22.0:
+    dependencies:
+      '@scarf/scarf': 1.4.0
+
+  swagger-ui-express@5.0.1(express@5.1.0):
+    dependencies:
+      express: 5.1.0
+      swagger-ui-dist: 5.22.0
 
   toidentifier@1.0.1: {}
 
