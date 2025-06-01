@@ -28,13 +28,22 @@ const getSingleByTitle = async (req, res) => {
 };
 
 const createAlbum = async (req, res) => {
+    const { title, releaseYear, type, tracklist, totalDuration, members} = req.body;
+
+    if (!title || !releaseYear || !tracklist || !Array.isArray(tracklist)) {
+        return res.status(400).json({ message: 'Title, releaseYear, and tracklist are required, and tracklist must be an array.'});
+    }
+    if (typeof releaseYear !== 'number' || releaseYear < 1989) {
+        return res.status(400).json({ message: 'Release year must be a number and not less than 1989.'})
+    }
+
     const album = new Album ({
-        title: req.body.title,
-        releaseYear: req.body.releaseYear,
-        type: req.body.type,
-        tracklist: req.body.tracklist,
-        totalDuration: req.body.totalDuration,
-        members: req.body.members
+        title,
+        releaseYear,
+        type,
+        tracklist,
+        totalDuration,
+        members
     });
 
     try {
@@ -50,16 +59,27 @@ const createAlbum = async (req, res) => {
 
 const updateAlbum = async (req, res) => {
     const albumId = req.params.id;
+    const { title, releaseYear, type, tracklist, totalDuration, members } = req.body;
+
+    if (title === undefined || releaseYear === undefined || tracklist === undefined) {
+        return res.status(400).json({ message: 'Title, releaseYear, and tracklist are required for update.' });
+     }
+    if (typeof releaseYear !== 'number' || releaseYear < 1989) {
+        return res.status(400).json({ message: 'Release year must be a number and not less than 1989.' });
+     }
+    if (!Array.isArray(tracklist)) {
+        return res.status(400).json({ message: 'Tracklist must be an array.' });
+    }
 
     const albumData = {
-        title: req.body.title,
-        releaseYear: req.body.releaseYear,
-        type: req.body.type,
-        tracklist: req.body.tracklist,
-        totalDuration: req.body.totalDuration,
-        coverArtUrl: req.body.coverArtUrl,
-        description: req.body.description,
-        members: req.body.members
+        title,
+        releaseYear,
+        type,
+        tracklist,
+        totalDuration,
+        coverArtUrl,
+        description,
+        members
     };
 
     try {
@@ -76,7 +96,7 @@ const updateAlbum = async (req, res) => {
     } catch (error) {
         console.error('Error to update the album:', error);
         res.status(400).json({
-            message: error.message || 'Errorupdating the album.'
+            message: error.message || 'Error updating the album.'
         });
     }
 };
